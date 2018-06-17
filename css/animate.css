@@ -1,0 +1,72 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html { height: 100%; }
+body {
+    margin: 0;
+    height:100%;
+    min-height: 100%;
+    position:relative;
+}
+
+footer,
+header {
+  width: 100%;
+}
+
+#columnsContainer {
+  position: absolute;
+  width: 90%;
+  height:70%;
+  top: 15%;
+  left: 5%;
+}
+
+header,
+footer {
+  height: 10%;
+}
+
+header {
+  top: 0;
+  position: fixed;
+}
+footer {
+  bottom: 0;
+  position: fixed;
+}
+
+#leftColumn {
+  position: relative;
+  height: 50%;
+  width: 100%;
+}
+#rightColumn {
+  position: relative;
+  height: 50%;
+  /* margin: 2.5% 5%; */
+  width: 100%;
+}
+/* MEDIA QUERIES */
+@media screen and (min-width: 47.5em) {
+  #leftColumn {
+    height:100%;
+    position: absolute;
+    top: 0;
+    margin-right: 2.5%;
+    width: 72.5%;
+  }
+  #rightColumn {
+    height:100%;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    right: 0;
+    width: 25%;
+  }
+}
