@@ -13,6 +13,7 @@ function scrollSlide(id) {
 }
 
 (function () {
+  var moveToQueue = [];
   window.setInterval(function () {
     if (moveToQueue.length > 0) {
       var destLeft = 4000;
@@ -44,6 +45,7 @@ function scrollSlide(id) {
       );
     }
   }, getRandomInt(100, 300));
+  
   var div_to_insert = document.createElement('div');
   div_to_insert.classList.add('colorGrid');
   div_to_insert.style.borderRadius = '50%';
