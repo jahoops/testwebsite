@@ -118,12 +118,144 @@ function fillElWith(containerElement, insertElement, cols, rows) {
         for (var c = 0; c < cols; c++) {
             var x = c * width;
             var insertElementClone = insertElement.cloneNode(true);
-            insertElementClone.style.height = (1/rows * 100) + '%';
-            insertElementClone.style.width = (1/cols * 100) + '%';
+            insertElementClone.style.height = (1 / rows * 100) + '%';
+            insertElementClone.style.width = (1 / cols * 100) + '%';
             insertElementClone.style.position = 'absolute';
             insertElementClone.style.top = y + 'px';
             insertElementClone.style.left = x + 'px';
             containerElement.appendChild(insertElementClone);
         }
     }
+}
+
+function logoFun() {
+    // class names of letters in SVG groups
+    var letters = ['g.j', 'g.jdot', 'g.w', 'g.h', 'g.o', 'g.o2', 'g.p', 'g.e', 'g.r', 'g.dot', 'g.n', 'g.e2', 'g.t'];
+
+    // looping with for
+    for (var i = 0; i < letters.length; i++) {
+        // IIFE needed, for is iterative
+        (function () {
+            var _i = i;
+            setTimeout(function () {
+                document.querySelector('#svglogo ' + letters[_i]).style.fill = 'white';
+            }, i * 100);
+        })()
+
+    }
+
+    // looping with forEach
+    letters.forEach(function (letter, index) {
+        //IIFE not needed, forEach is functional
+        setTimeout(function () {
+            document.querySelector('#svglogo ' + letter).style.fill = 'black';
+        }, index * 150);
+    });
+
+    letters.forEach(function (letter, index) {
+        document.querySelector('#svglogo ' + letter).style.opacity = 1;
+    });
+
+    // with a little help from anime.js
+    var logoTimeline = anime.timeline();
+    letters.forEach(function (letter, index) {
+        console.log(letter, index);
+        var el = '#svglogo2 ' + letter + ' path';
+        logoTimeline.add(
+            anime({
+                targets: el,
+                strokeDashoffset: [{
+                        value: [anime.setDashoffset, anime.setDashoffset],
+                        duration: 3000
+                    },
+                    {
+                        value: 0,
+                        duration: 1200,
+                        delay: 150 * index,
+                        easing: 'easeInOutQuart'
+                    }
+                ],
+                strokeWidth: {
+                    value: [1, 1.05],
+                    delay: 100 * index,
+                    duration: 200,
+                    easing: 'easeInQuad'
+                },
+                stroke: {
+                    value: ['#FFF', function (el) {
+                        return anime.getValue(el, 'stroke')
+                    }],
+                    duration: 800,
+                    delay: 250 * index,
+                    easing: 'easeInQuad'
+                },
+                offset: 0
+            })
+        );
+    });
+
+    // another variation
+    var cloneit = document.querySelector('#svglogo2').cloneNode(true);
+    cloneit.setAttribute('id', 'svglogo3');
+    document.getElementsByTagName("section")[0].appendChild(cloneit);
+    var letterTime = 250;
+
+    var lineDrawing = anime({
+        targets: "#svglogo3 path",
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: "easeInOutCubic",
+        duration: letterTime,
+        delay: function (el, i) {
+            return letterTime * i;
+        },
+        begin: function (anim) {
+            var letters = document.querySelectorAll("#svglogo3 path");
+            for (var i = 0; i < letters.length; ++i) {
+                letters[i].setAttribute("stroke", letters);
+                letters[i].setAttribute("fill", "none");
+            }
+        },
+        update: function (anim) {
+            if (anim.currentTime >= letterTime) {
+                document.querySelector(".j").setAttribute("fill", "#e91e63");
+            }
+            if (anim.currentTime >= letterTime) {
+                document.querySelector(".jdot").setAttribute("fill", "#e91e63");
+            }
+            if (anim.currentTime >= 2 * letterTime) {
+                document.querySelector(".w").setAttribute("fill", "#3F51B5");
+            }
+            if (anim.currentTime >= 3 * letterTime) {
+                document.querySelector(".h").setAttribute("fill", "#8BC34A");
+            }
+            if (anim.currentTime >= 4 * letterTime) {
+                document.querySelector(".o").setAttribute("fill", "#FF5722");
+            }
+            if (anim.currentTime >= 5 * letterTime) {
+                document.querySelector(".o2").setAttribute("fill", "#795548");
+            }
+            if (anim.currentTime >= 5 * letterTime) {
+                document.querySelector(".p").setAttribute("fill", "#e91e63");
+            }
+            if (anim.currentTime >= 7 * letterTime) {
+                document.querySelector(".e").setAttribute("fill", "#3F51B5");
+            }
+            if (anim.currentTime >= 8 * letterTime) {
+                document.querySelector(".r").setAttribute("fill", "#8BC34A");
+            }
+            if (anim.currentTime >= 9 * letterTime) {
+                document.querySelector(".dot").setAttribute("fill", "#FF5722");
+            }
+            if (anim.currentTime >= 10 * letterTime) {
+                document.querySelector(".n").setAttribute("fill", "#795548");
+            }
+            if (anim.currentTime >= 11 * letterTime) {
+                document.querySelector(".e2").setAttribute("fill", "#3F51B5");
+            }
+            if (anim.currentTime >= 12 * letterTime) {
+                document.querySelector(".t").setAttribute("fill", "#8BC34A");
+            }
+            autoplay: true
+        }
+    });
 }
