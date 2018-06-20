@@ -161,11 +161,54 @@ function logoFun() {
         document.querySelector('#svglogo ' + letter).style.opacity = 1;
     });
 
+    // another variation
+    var cloneit = document.querySelector('#svglogo2').cloneNode(true);
+    cloneit.setAttribute('id', 'svglogo3');
+    document.getElementsByTagName("section")[0].appendChild(cloneit);
+
+}
+
+function logoShowByLetter(svgid){
+    // class names of letters in SVG groups
+    var letters = [' g.j', ' g.jdot', ' g.w', ' g.h', ' g.o', ' g.o2', ' g.p', ' g.e', ' g.r', ' g.dot', ' g.n', ' g.e2', ' g.t'];
+    var colors = ['#FFFFFF','#D8BFD8','#FFFF00','#FF0000','#00FF7F','#FFC0CB','#FFA500','#00FFFF','#BA55D3','#00FF00','#00CED1','#BC8F8F','#7FFF00'];
+    var paths = [];
+
+    var letterTime = 150;
+    for (var i = 0; i < letters.length; ++i) {
+        paths[i] = document.querySelector("#" + svgid + letters[i] + ' path');
+    }
+    var lineDrawing = anime({
+        targets: "#" + svgid + " path",
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: "easeInOutCubic",
+        duration: letterTime,
+        delay: function (el, i) {
+            return letterTime * i;
+        },
+        begin: function (anim) {
+
+        },
+        update: function (anim) {
+            for (var i = 0; i < paths.length; ++i) {
+                if (anim.currentTime >= (letterTime * (i+1))+400) {
+                    paths[i].style.stroke = lighten(colors[i],-0.25);
+                    paths[i].style.fill = colors[i];
+                }
+            }
+            autoplay: true;
+        }
+    });
+}
+
+function logoAnimate(svgid){
+    // class names of letters in SVG groups
+    var letters = ['g.j', 'g.jdot', 'g.w', 'g.h', 'g.o', 'g.o2', 'g.p', 'g.e', 'g.r', 'g.dot', 'g.n', 'g.e2', 'g.t'];
+
     // with a little help from anime.js
     var logoTimeline = anime.timeline();
     letters.forEach(function (letter, index) {
-        console.log(letter, index);
-        var el = '#svglogo2 ' + letter + ' path';
+        var el = "#" + svgid + " path";
         logoTimeline.add(
             anime({
                 targets: el,
@@ -198,69 +241,23 @@ function logoFun() {
             })
         );
     });
+}
 
-    // another variation
-    var cloneit = document.querySelector('#svglogo2').cloneNode(true);
-    cloneit.setAttribute('id', 'svglogo3');
-    document.getElementsByTagName("section")[0].appendChild(cloneit);
-    var letterTime = 250;
+function lighten(color, luminosity) {
 
-    var lineDrawing = anime({
-        targets: "#svglogo3 path",
-        strokeDashoffset: [anime.setDashoffset, 0],
-        easing: "easeInOutCubic",
-        duration: letterTime,
-        delay: function (el, i) {
-            return letterTime * i;
-        },
-        begin: function (anim) {
-            var letters = document.querySelectorAll("#svglogo3 path");
-            for (var i = 0; i < letters.length; ++i) {
-                letters[i].setAttribute("stroke", letters);
-                letters[i].setAttribute("fill", "none");
-            }
-        },
-        update: function (anim) {
-            if (anim.currentTime >= letterTime) {
-                document.querySelector(".j").setAttribute("fill", "#e91e63");
-            }
-            if (anim.currentTime >= letterTime) {
-                document.querySelector(".jdot").setAttribute("fill", "#e91e63");
-            }
-            if (anim.currentTime >= 2 * letterTime) {
-                document.querySelector(".w").setAttribute("fill", "#3F51B5");
-            }
-            if (anim.currentTime >= 3 * letterTime) {
-                document.querySelector(".h").setAttribute("fill", "#8BC34A");
-            }
-            if (anim.currentTime >= 4 * letterTime) {
-                document.querySelector(".o").setAttribute("fill", "#FF5722");
-            }
-            if (anim.currentTime >= 5 * letterTime) {
-                document.querySelector(".o2").setAttribute("fill", "#795548");
-            }
-            if (anim.currentTime >= 5 * letterTime) {
-                document.querySelector(".p").setAttribute("fill", "#e91e63");
-            }
-            if (anim.currentTime >= 7 * letterTime) {
-                document.querySelector(".e").setAttribute("fill", "#3F51B5");
-            }
-            if (anim.currentTime >= 8 * letterTime) {
-                document.querySelector(".r").setAttribute("fill", "#8BC34A");
-            }
-            if (anim.currentTime >= 9 * letterTime) {
-                document.querySelector(".dot").setAttribute("fill", "#FF5722");
-            }
-            if (anim.currentTime >= 10 * letterTime) {
-                document.querySelector(".n").setAttribute("fill", "#795548");
-            }
-            if (anim.currentTime >= 11 * letterTime) {
-                document.querySelector(".e2").setAttribute("fill", "#3F51B5");
-            }
-            if (anim.currentTime >= 12 * letterTime) {
-                document.querySelector(".t").setAttribute("fill", "#8BC34A");
-            }
-            autoplay: true
-        }
-    });
+	// validate hex string
+	color = new String(color).replace(/[^0-9a-f]/gi, '');
+	if (color.length < 6) {
+		color = color[0]+ color[0]+ color[1]+ color[1]+ color[2]+ color[2];
+	}
+	luminosity = luminosity || 0;
+
+	// convert to decimal and change luminosity
+	var newColor = "#", c, i, black = 0, white = 255;
+	for (i = 0; i < 3; i++) {
+		c = parseInt(color.substr(i*2,2), 16);
+		c = Math.round(Math.min(Math.max(black, c + (luminosity * white)), white)).toString(16);
+		newColor += ("00"+c).substr(c.length);
+	}
+	return newColor; 
 }

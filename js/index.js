@@ -14,37 +14,37 @@ function scrollSlide(id) {
 
 (function () {
   var moveToQueue = [];
-  window.setInterval(function () {
-    if (moveToQueue.length > 0) {
-      var destLeft = 4000;
-      var timeToComplete = 3000;
-      var el = moveToQueue.shift();
-      el.classList.remove('red');
-      el.classList.remove('blue');
-      var r = getRandomInt(40, 120);
-      if (r % 5 === 0) el.classList.add('red');
-      if (r % 40 === 0) {
-        el.classList.add('blue');
-        timeToComplete = 35000;
-      }
-      el.style.top = r + 'px';
-      el.style.left = '-1000px';
-      el.style.zIndex = r;
-      el.style.zoom = r / 100;
-      el.style.display = 'block';
-      var d = new Date();
-      var ticks = d.getTime();
-      moveTo(
-        el, {
-          top: parseInt(el.style.top, 10) || 0,
-          left: destLeft
-        },
-        ticks,
-        ticks + timeToComplete,
-        moveToFinished
-      );
-    }
-  }, getRandomInt(100, 300));
+  // window.setInterval(function () {
+  //   if (moveToQueue.length > 0) {
+  //     var destLeft = 4000;
+  //     var timeToComplete = 3000;
+  //     var el = moveToQueue.shift();
+  //     el.classList.remove('red');
+  //     el.classList.remove('blue');
+  //     var r = getRandomInt(40, 120);
+  //     if (r % 5 === 0) el.classList.add('red');
+  //     if (r % 40 === 0) {
+  //       el.classList.add('blue');
+  //       timeToComplete = 35000;
+  //     }
+  //     el.style.top = r + 'px';
+  //     el.style.left = '-1000px';
+  //     el.style.zIndex = r;
+  //     el.style.zoom = r / 100;
+  //     el.style.display = 'block';
+  //     var d = new Date();
+  //     var ticks = d.getTime();
+  //     moveTo(
+  //       el, {
+  //         top: parseInt(el.style.top, 10) || 0,
+  //         left: destLeft
+  //       },
+  //       ticks,
+  //       ticks + timeToComplete,
+  //       moveToFinished
+  //     );
+  //   }
+  // }, getRandomInt(100, 300));
   
   var div_to_insert = document.createElement('div');
   div_to_insert.classList.add('colorGrid');
@@ -61,8 +61,6 @@ function scrollSlide(id) {
   var itm = document.getElementsByClassName('ryu');
   itm[0].style.display = 'none';
 
-  var moveToQueue = [];
-
   function moveToFinished(element) {
     moveToQueue.push(element);
   }
@@ -72,4 +70,8 @@ function scrollSlide(id) {
     document.getElementById("slide2").appendChild(cln);
     moveToQueue.push(cln);
   }
+
+  logoShowByLetter('svglogo');
+  //logoAnimate('svglogo');
+
 })();

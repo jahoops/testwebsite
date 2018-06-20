@@ -70,15 +70,19 @@ h3 {
   margin-top: 20px;
 }
 
-#logo a {
-  color: #fff;
-  text-decoration: none;
-  float: left;
-  font-size: 30px;
-  margin-top: 20px;
-  color: #fff;
-  font-family: "Wellfleet";
-  font-weight: bold;
+#logo {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 274.5px;
+  height: 67.4px;
+}
+
+#svglogo g path {
+  fill: transparent; 
+  stroke: transparent;
+  stroke-linecap: 'round';
+  transition: opacity ease 1s, stroke .5s ease, fill 1.5s linear;  
 }
 
 #nav ul {
@@ -227,6 +231,7 @@ h3 {
 
 #slide1 {
   background: url(../img/slide3.png) 50% 0 no-repeat fixed;
+  background-color: black;
   color: #fff;
   height: 600px;
   margin: 0;
