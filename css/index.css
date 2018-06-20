@@ -241,6 +241,10 @@ h3 {
 #slide1 .content {
   position: relative;
 }
+#slide1 .content .colorGrid {
+  border-radius: 0%;
+  transition: border-radius ease 2s;
+}
 #slide2 {
   position: relative;
   background-color: #fff;

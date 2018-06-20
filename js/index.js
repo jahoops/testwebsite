@@ -48,14 +48,19 @@ function scrollSlide(id) {
   
   var div_to_insert = document.createElement('div');
   div_to_insert.classList.add('colorGrid');
-  div_to_insert.style.borderRadius = '50%';
   div_to_insert.style.margin = '10px';
   var container = document.querySelector('#slide1 .content');
   container.style.height = '250px';
   fillElWith(container, div_to_insert, 3, 2);
   var grid = document.querySelectorAll('#slide1 .content .colorGrid');
   grid.forEach(function(el){
+    el.style.borderRadius = '0%';
     el.style.backgroundColor = randomColor();
+    setTimeout(function(){
+      el.style.borderRadius = '50%';
+    },500);
+    
+
   });
 
   var itm = document.getElementsByClassName('ryu');
@@ -65,11 +70,11 @@ function scrollSlide(id) {
     moveToQueue.push(element);
   }
 
-  for (var i = 0; i < 30; i++) {
-    var cln = itm[0].cloneNode(true);
-    document.getElementById("slide2").appendChild(cln);
-    moveToQueue.push(cln);
-  }
+  // for (var i = 0; i < 30; i++) {
+  //   var cln = itm[0].cloneNode(true);
+  //   document.getElementById("slide2").appendChild(cln);
+  //   moveToQueue.push(cln);
+  // }
 
   logoShowByLetter('svglogo');
   //logoAnimate('svglogo');
