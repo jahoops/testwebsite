@@ -171,7 +171,7 @@ function logoFun() {
 function logoShowByLetter(svgid){
     // class names of letters in SVG groups
     var letters = [' g.j', ' g.jdot', ' g.w', ' g.h', ' g.o', ' g.o2', ' g.p', ' g.e', ' g.r', ' g.dot', ' g.n', ' g.e2', ' g.t'];
-    var colors = ['#FFFFFF','#D8BFD8','#FFFF00','#FF0000','#00FF7F','#FFC0CB','#FFA500','#00FFFF','#BA55D3','#00FF00','#00CED1','#BC8F8F','#7FFF00'];
+    var colors = ['#C93A32','#D93A32','#DA3F35','#DD433A','#FD6136','#FE8050','#FF9050','#FE9851','#FAA852','#F3B053','#F0BC53','#EFCA54','#F0D057'];
     var paths = [];
 
     var letterTime = 150;
@@ -182,7 +182,7 @@ function logoShowByLetter(svgid){
         targets: "#" + svgid + " path",
         strokeDashoffset: [anime.setDashoffset, 0],
         easing: "easeInOutCubic",
-        duration: letterTime,
+        duration: 2500,
         delay: function (el, i) {
             return letterTime * i;
         },
@@ -192,7 +192,7 @@ function logoShowByLetter(svgid){
         update: function (anim) {
             for (var i = 0; i < paths.length; ++i) {
                 if (anim.currentTime >= (letterTime * (i+1))+400) {
-                    paths[i].style.stroke = lighten(colors[i],-0.25);
+                    paths[i].style.stroke = lighten(colors[i],0.15);
                     paths[i].style.fill = colors[i];
                 }
             }
